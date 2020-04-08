@@ -1,0 +1,21 @@
+定义数据类型转换器
+    举例:当前台传入一个字符串,后台接收的参数类型是date类型,这时候就会出现类型转换错误的异常
+
+    所以定义一个类型转换器
+    @Component
+    public class DateConverter implements Converter<String, Date> {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        @Override
+        public Date convert(String s) {
+            if(StringUtils.isEmpty(s)){
+                return null;
+            }
+            try {
+                return dateFormat.parse(s);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
